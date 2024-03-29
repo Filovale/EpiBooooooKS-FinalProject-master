@@ -1,0 +1,41 @@
+.card-image {
+    height: 25.5em;
+    object-fit: contain;
+    padding-top: 0.8em;
+}
+
+.ellipsis {
+    display:-webkit-box;
+    -webkit-line-clamp:1;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.cursor-hover:hover {
+    cursor: pointer;
+}
+
+.border-none {
+    border: none;
+}
+
+.back-color-light {
+    background-color: black;
+}
+
+.back-color-dark {
+    background-color: rgb(87, 3, 87);
+}
+
+.selected-book {
+    border: solid 5px red;
+}
+
+.link-style {
+    color: #15F5BA;
+    text-decoration:none;
+}
+
+.link-style:hover {
+    border-bottom: solid 1px #15F5BA;
+}

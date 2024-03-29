@@ -1,0 +1,32 @@
+.justify-content-start {
+    border-bottom: solid 1px black;
+    padding-bottom: 5px;
+}
+
+.color-dark {
+    color: white;
+}
+
+.color-light {
+    color: black;
+}
+
+.color-hover-light:hover {
+    border-bottom: solid 2px rgb(171, 9, 166);
+    padding-bottom: 0.3em;   
+    color: black; 
+}
+
+.color-hover-dark:hover {
+    border-bottom: solid 2px white;
+    padding-bottom: 0.3em; 
+    color: white;   
+}
+
+.search-field-style {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    border-color: black;
+}

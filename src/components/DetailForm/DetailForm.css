@@ -1,0 +1,20 @@
+.image-details {
+    max-width: 100%; /* Immagine della copertina responsiva */
+    border-radius: 10px; /* Bordi arrotondati */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    width: 70%;
+}
+
+.btn-show-comments {
+    background-color: #007bff; /* Colore di sfondo del pulsante */
+    color: #fff; /* Colore del testo del pulsante */
+    border: none; /* Nessun bordo */
+    border-radius: 5px; /* Bordi arrotondati */
+    padding: 10px 20px; /* Spaziatura interna */
+    cursor: pointer; /* Cambia il cursore al passaggio sopra il pulsante */
+    transition: background-color 0.3s ease; /* Transizione del colore di sfondo */
+}
+
+.btn-show-comments:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
+}
