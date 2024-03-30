@@ -1,0 +1,14 @@
+.background-comment {
+    padding: 20px;
+    display: flex; 
+    flex-direction: column; 
+    margin-top: 65px; 
+    margin-right: 15px;
+}
+
+
+.comment-area-fixed {
+    top: 300px; 
+    right: 100px;
+    width: 33%; 
+}
