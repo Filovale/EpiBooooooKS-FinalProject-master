@@ -1,8 +1,8 @@
 import CommentList from './CommentList.jsx';
 import AddComment from './AddComment.jsx';
 import { useState, useEffect } from 'react';
-import Loading from './Loading'
-import Error from './Error'
+import Loading from './Loading.jsx';
+import Error from './Error.jsx';
 import './CommentArea.css';
 
 //CommentArea è un componente funzionale che riceve l'ASIN del libro come props.
@@ -42,30 +42,63 @@ export default function CommentArea ({ asin }) {
             //Se la richiesta ha successo, i commenti vengono estratti dal corpo della risposta e impostati nello stato comments utilizzando setComments.
             //isLoading viene impostato su false per nascondere il componente di caricamento.
             if (response.ok) {
+
                 const comments = await response.json();
                 setComments(comments);
                 setIsLoading(false)
                 setIsError(false)
 
             } else {
+
                 console.log('error')
                 setIsLoading(false)
                 setIsError(true)
             }
 
             } catch (error) {
+
             console.log(error)
             setIsLoading(false)
             setIsError(true)
+
             }
         }
 
         if (asin) {
+
             getComments();
+
         }
 
     }, [asin]);   
 
+    //Nuovo ENDPOINT_post che rappresenta l'endpoint dell'API dove verranno inviati i commenti.
+     const ENDPOINT_post = "https://striveschool-api.herokuapp.com/api/comments";
+
+     //Nuova funzione asincrona x postare i commenti
+     const postComments = async (newComment) => {
+
+         try {
+             const response = await fetch(ENDPOINT_post, {
+                 method: 'POST',
+                 body: JSON.stringify(newComment),
+                 headers: {
+                     'Content-type': 'application/json',
+                     Authorization: key,
+                 },
+             })
+             if (response.ok) {
+
+                //Aggiungiamo il commento allo stato dei commenti insieme a quelli già presenti
+                 setComments((prevComments) => [...prevComments, newComment]);
+
+             } else {
+                 throw new Error('Something went wrong!');
+             }
+         } catch (error) {
+             console.log(error);
+         }
+     }
 
     return (
         <>  
@@ -73,7 +106,7 @@ export default function CommentArea ({ asin }) {
                 {isLoading && <Loading />}
                 {isError && <Error />}
                 <CommentList commentToShow={comments}/>
-                <AddComment/>
+                <AddComment asin={asin} postComments={postComments}/>
             </div>
         </>
         

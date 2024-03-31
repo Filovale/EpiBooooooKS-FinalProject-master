@@ -1,40 +1,48 @@
-import { Form, FloatingLabel, Button } from 'react-bootstrap'
-import { useState } from "react";
-
-//La componente riceve due props: selectedBook che rappresenta il libro selezionato per cui si sta aggiungendo il commento
-//e onSubmitComment che è una funzione fornita dal genitore per inviare il nuovo commento.
-export default function AddComment ( {selectedBook, onSubmitComment} ) {
-
-    //Utilizza lo stato per tracciare il testo del commento (comment) e il voto (rate) forniti dall'utente.
-    const [comment, setComment] = useState("");
-    const [rate, setRate] = useState("");
+import { Form, Button } from "react-bootstrap";
+import { useState } from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from "../../../context/ThemeContextProvider";
 
 
-    //Viene chiamata quando l'utente invia il modulo.
-    //Impedisce il comportamento predefinito del modulo (ricarica della pagina).
-    //Costruisce un oggetto postContent contenente il testo del commento, il voto e l'ID del libro.
-    //Chiama la funzione onSubmitComment passando postContent come argomento per inviare il nuovo commento al genitore.
-    function handleSubmit(e) {
-        e.preventDefault();
+export default function AddComment ({asin, postComments}) {
+         
+    const { theme } = useContext(ThemeContext);
+    
+    const addCommentTheme = theme === "dark" ? "font-color-light" : "font-color-dark";
 
-        const postContent = {
-            comment: `${comment}`, 
-            rate: `${rate}`, 
-            elementId: `${selectedBook}`
-        };          
+    const [newComment, setNewComment] = useState({comment: "", rate: null, elementId: asin});
 
-        onSubmitComment(postContent);
-    };  
+    const handleNewComment =  (event) => {
+
+        event.preventDefault();
+        postComments(newComment);
+        setNewComment({comment: "", rate: "", elementId: asin});
+
+    }  
 
     return (
-            <Form className="d-flex flex-column align-items-center gap-2 mt-5 p-3 background-color">
-                <FloatingLabel controlId="floatingCommento" label="Insert a comment">
-                    <Form.Control type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
-                </FloatingLabel>  
-                <FloatingLabel controlId="floatingRate" label="Rate 1 to 5">
-                    <Form.Control type="number" max={5} value={rate} onChange={(e) => setRate(e.target.value)}/>
-                </FloatingLabel>  
-                <Button variant="success" type="submit" onClick={handleSubmit}>Post</Button>   
-            </Form>                    
+
+        <Form className="px-5 py-2" onSubmit={handleNewComment}>
+
+            <Form.Group className="mb-3" controlId="controlComment">
+                <Form.Label className={addCommentTheme}>Write your comment there:</Form.Label>
+                <Form.Control type="textarea" rows={2} value={newComment.comment} placeholder="Write something..." onChange={(e) => {setNewComment({...newComment, comment: e.target.value })}}/>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="controlRate">
+                <Form.Select as="selection" max={5} value={newComment.rate} onChange={(e) => {setNewComment({...newComment, rate: e.target.value })}}>
+
+                <option>1 to 5 rate selector</option>
+
+                <option value="1">1</option> 
+                <option value="2">2</option> 
+                <option value="3">3</option> 
+                <option value="4">4</option> 
+                <option value="5">5</option>
+
+                </Form.Select>
+            </Form.Group>     
+            <Button type="submit">Save and commit</Button>       
+        </Form>        
     )
 }
