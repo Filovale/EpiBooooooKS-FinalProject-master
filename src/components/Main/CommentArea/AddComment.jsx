@@ -5,17 +5,24 @@ import { ThemeContext } from "../../../context/ThemeContextProvider";
 
 
 export default function AddComment ({asin, postComments}) {
-         
+        
+    //Il tema viene utilizzato per impostare lo stile del componente e il tema corrente
     const { theme } = useContext(ThemeContext);
-    
     const addCommentTheme = theme === "dark" ? "font-color-light" : "font-color-dark";
 
+    //Lo stato newComment è utilizzato per memorizzare il nuovo commento. Inizialmente, il commento è vuoto ("") e il tasso (rate) è null.
     const [newComment, setNewComment] = useState({comment: "", rate: null, elementId: asin});
 
+    //Quando l'utente invia il comm, viene chiamata la funzione handleNewComment.
     const handleNewComment =  (event) => {
 
+        //Previene il comportamento predefinito del form utilizzando event.preventDefault()
         event.preventDefault();
+
+        //Successivamente, chiamo la funzione postComments passando il nuovo commento come argomento.
         postComments(newComment);
+
+        //Dopo l'invio del commento, lo stato newComment diventa oggetto vuoto per consentire all'utente di aggiungere ulteriori commenti.
         setNewComment({comment: "", rate: "", elementId: asin});
 
     }  
