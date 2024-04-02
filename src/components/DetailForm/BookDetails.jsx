@@ -24,14 +24,14 @@ export default function BookDetails () {
     bookASIN = bookASIN.slice(1);
 
     // Trova il libro corrispondente all'ASIN dal JSON dei dati
-    const bookToShow = jsonData.find(book => book.asin === bookASIN);
+    const showBook = jsonData.find(book => book.asin === bookASIN);
 
 
     return (
         <>
             <MyNav/>
             {/* Passa il libro e la funzione handleClick al componente DetailForm */}
-            <DetailForm book={bookToShow} clickToShowComment={handleClick}/>
+            <DetailForm book={showBook} clickToShowComment={handleClick}/>
 
              {/* Mostra l'area commenti solo se "view" è true */}
             {viewComment && <CommentArea asin={bookASIN}/>}

@@ -6,17 +6,18 @@ import { ThemeContext } from "../../../context/ThemeContextProvider";
 export default function SingleComment( {userComment} ) {
 
     //Dalla prop comm, vengono estratti i campi comment e rate
-    const { comment, rate } = userComment; //Aggiungo id per identificare quel commento
+    const { comment, rate, _id } = userComment; //Aggiungo id per identificare quel commento
 
     //Controllo sempre del tema dark-light:
     const { theme } = useContext(ThemeContext);
+
+    const ENDPOINT_delete = `https://striveschool-api.herokuapp.com/api/comments/${_id}`;
 
 
     // Funzione per gestire l'eliminazione del commento
     const deleteComment = async (asin) => {
         try {
-          let response = await fetch(
-            'https://striveschool-api.herokuapp.com/api/comments/' + asin,
+          let response = await fetch(ENDPOINT_delete,
             {
               method: 'DELETE',
               headers: {
@@ -42,7 +43,7 @@ export default function SingleComment( {userComment} ) {
                 <span className={theme === "dark" ? "span-light" : "span-dark"}>{comment}</span>
                 <span className={theme === "dark" ? "span-light" : "span-dark"}>{`Rate: ${rate}`}</span>
             </div>
-            <button className='btn btn-outline bg-danger text-white ms-5' onClick={deleteComment}>Cancel</button>            
+            <button className='btn btn-outline bg-danger text-white ms-5' onClick={ () => deleteComment(userComment._id)}>Cancel</button>            
         </div>
     )
 }
