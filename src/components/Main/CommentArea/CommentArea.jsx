@@ -1,7 +1,6 @@
 import CommentList from './CommentList.jsx';
 import AddComment from './AddComment.jsx';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
 import Loading from './Loading.jsx';
 import Error from './Error.jsx';
 import './CommentArea.css';
